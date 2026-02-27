@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto-ajuste</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h2>Unidad 1 - Auto-ajuste</h2>
+    <p><b>¿Qué responde del examen?</b> Cómo definir un sistema adaptativo con: percepción/monitoreo, parámetro ajustable y procedimiento iterativo.</p>
+    <p><b>¿Para qué sirve?</b> Para llevar una variable al objetivo (setpoint), por ejemplo temperatura o latencia.</p>
+    <p><b>Cómo usar:</b> define setpoint, valor inicial, ruido, iteraciones y ganancia; luego presiona <i>Simular</i>.</p>
+  </section>
+
+  <section class="card">
+    <form th:action="@{/auto-ajuste}" th:object="${request}" method="post">
+      <div class="grid-2">
+        <div><label>Setpoint</label><input th:field="*{setpoint}"></div>
+        <div><label>Valor inicial</label><input th:field="*{initialValue}"></div>
+        <div><label>Ruido (amplitud)</label><input th:field="*{noiseAmplitude}"></div>
+        <div><label>Iteraciones</label><input th:field="*{iterations}"></div>
+      </div>
+      <label>Ganancia proporcional inicial</label><input th:field="*{proportionalGain}">
+      <button type="submit">Simular</button>
+    </form>
+  </section>
+
+  <section class="card" th:if="${steps != null}">
+    <h3>Resultado iterativo</h3>
+    <p class="small">Interpretación para examen: si el error disminuye por iteración, el auto-ajuste está acercando la salida al objetivo.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <tr><th>k</th><th>Medición</th><th>Error</th><th>Parámetro ajustado</th><th>Nueva salida</th></tr>
+        <tr th:each="s,iter : ${steps}" class="row-animate" th:style="|animation-delay:${iter.index * 80}ms|">
+          <td th:text="${s.iteration}"></td>
+          <td th:text="${#numbers.formatDecimal(s.measured,1,3)}"></td>
+          <td th:text="${#numbers.formatDecimal(s.error,1,3)}"></td>
+          <td th:text="${#numbers.formatDecimal(s.adjustedParameter,1,3)}"></td>
+          <td th:text="${#numbers.formatDecimal(s.output,1,3)}"></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiagente</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h2>Unidad 4 - Sistemas multiagente</h2>
+    <p><b>¿Qué responde del examen?</b> Determinar si el agente <code>j</code> tiene estrategia dominante estricta o débil en matriz 2x2.</p>
+    <p><b>¿Para qué sirve?</b> Elegir la mejor estrategia de <code>j</code> comparando pagos de cada columna en todas las filas.</p>
+  </section>
+
+  <section class="card">
+    <form th:action="@{/multiagente}" th:object="${request}" method="post">
+      <div class="grid-2">
+        <div><label>Fila 1 - Col 1</label><input th:field="*{r1c1}"></div>
+        <div><label>Fila 1 - Col 2</label><input th:field="*{r1c2}"></div>
+        <div><label>Fila 2 - Col 1</label><input th:field="*{r2c1}"></div>
+        <div><label>Fila 2 - Col 2</label><input th:field="*{r2c2}"></div>
+      </div>
+      <button type="submit">Analizar</button>
+    </form>
+  </section>
+
+  <section class="card" th:if="${result != null}">
+    <p><b>Tipo de dominancia:</b> <span th:text="${result.type}"></span></p>
+    <p><b>Estrategia recomendada:</b> <span th:text="${result.strategy}"></span></p>
+    <p th:text="${result.explanation}"></p>
+    <p class="small">Explicación de examen: compara columna vs columna en fila 1 y fila 2; si una columna gana siempre (o al menos empata y gana una), domina.</p>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

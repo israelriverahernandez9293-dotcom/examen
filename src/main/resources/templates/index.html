@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h1>Simulador para examen: Programación de Sistemas Adaptativos</h1>
+    <p>Esta web está organizada por unidades para que puedas practicar <b>exactamente qué responder</b> en examen y <b>cómo justificarlo</b> con una ejecución real.</p>
+  </section>
+
+  <section class="grid-2">
+    <article class="card">
+      <h3>¿Cómo estudiar con esta app?</h3>
+      <ol class="steps">
+        <li>Entra a una sección del menú.</li>
+        <li>Lee el bloque: <b>“¿Qué responde del examen?”</b>.</li>
+        <li>Ejecuta la simulación con el ejemplo precargado.</li>
+        <li>Cambia datos para entender el comportamiento.</li>
+        <li>Usa la explicación generada como base de tu respuesta teórica.</li>
+      </ol>
+    </article>
+    <article class="card">
+      <h3>Unidades cubiertas</h3>
+      <ul>
+        <li><span class="badge">U1</span> Auto-ajuste y Cruza GA.</li>
+        <li><span class="badge">U2</span> Quiz de Caos y sensibilidad inicial.</li>
+        <li><span class="badge">U3</span> BFS y Perceptrón.</li>
+        <li><span class="badge">U4</span> Estrategia dominante en matriz 2x2.</li>
+      </ul>
+      <p class="small">Tip de examen: describe <b>entrada</b>, <b>procedimiento</b>, <b>salida</b> y <b>interpretación</b>.</p>
+    </article>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
