@@ -1,6 +1,47 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Caos Quiz</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head><body>
-<div th:replace="~{fragments/layout :: header}"></div><div class="container"><div class="card"><h2>Cuestionario de Sistemas Complejos (Caos)</h2><form th:action="@{/caos-quiz}" th:object="${request}" method="post">
-<label>Q1: Estructura auto-similar repetida a distintas escalas:</label><select th:field="*{q1}"><option value="fractal">Fractal</option><option value="atractor">Atractor</option><option value="autoajuste">Auto-ajuste</option></select>
-<label>Q2: ¿Qué describe mejor el caos determinista?</label><select th:field="*{q2}"><option value="sensibilidad">Sensibilidad a condiciones iniciales</option><option value="linealidad">Comportamiento lineal</option><option value="estabilidad">Estabilidad total</option></select>
-<button type="submit">Evaluar</button></form></div>
-<div class="card" th:if="${feedback != null}"><ul><li th:each="f : ${feedback}" th:text="${f}"></li></ul></div></div><div th:replace="~{fragments/layout :: footer}"></div></body></html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caos Quiz</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h2>Unidad 2 - Sistemas complejos (Caos)</h2>
+    <p><b>¿Qué responde del examen?</b> Diferenciar conceptos: fractal, atractor, auto-ajuste y sensibilidad a condiciones iniciales.</p>
+    <p><b>¿Para qué sirve?</b> Comprobar comprensión conceptual con retroalimentación inmediata.</p>
+  </section>
+
+  <section class="card">
+    <form th:action="@{/caos-quiz}" th:object="${request}" method="post">
+      <label>Q1: Estructura auto-similar en diferentes escalas</label>
+      <select th:field="*{q1}">
+        <option value="fractal">Fractal</option>
+        <option value="atractor">Atractor</option>
+        <option value="autoajuste">Auto-ajuste</option>
+      </select>
+
+      <label>Q2: El caos determinista se caracteriza por...</label>
+      <select th:field="*{q2}">
+        <option value="sensibilidad">Sensibilidad a condiciones iniciales</option>
+        <option value="linealidad">Comportamiento lineal</option>
+        <option value="estabilidad">Estabilidad total</option>
+      </select>
+
+      <button type="submit">Evaluar</button>
+    </form>
+  </section>
+
+  <section class="card" th:if="${feedback != null}">
+    <h3>Retroalimentación</h3>
+    <ul>
+      <li th:each="f : ${feedback}" th:text="${f}"></li>
+    </ul>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

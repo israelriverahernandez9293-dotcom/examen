@@ -1,4 +1,60 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Redes Neuronales</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head><body>
-<div th:replace="~{fragments/layout :: header}"></div><div class="container"><div class="card"><h2>Perceptrón desde cero</h2><p>Clasificación binaria (AND/OR o dataset manual).</p>
-<form th:action="@{/redes-neuronales}" th:object="${request}" method="post"><label>Dataset</label><select th:field="*{datasetType}"><option value="OR">OR</option><option value="AND">AND</option><option value="CUSTOM">CUSTOM</option></select><label>Dataset manual (x1,x2,y por línea)</label><textarea th:field="*{customDataset}" rows="4"></textarea><label>Learning rate</label><input th:field="*{learningRate}"><label>Épocas</label><input th:field="*{epochs}"><button type="submit">Entrenar</button></form><p class="error" th:if="${error}" th:text="${error}"></p></div>
-<div class="card" th:if="${result != null}"><p>Pesos iniciales: w1=<span th:text="${result.initialW1}"></span>, w2=<span th:text="${result.initialW2}"></span>, b=<span th:text="${result.initialBias}"></span></p><table class="table"><tr><th>Época</th><th>w1</th><th>w2</th><th>bias</th><th>Error total</th></tr><tr th:each="e : ${result.epochs}"><td th:text="${e.epoch}"></td><td th:text="${#numbers.formatDecimal(e.weight1,1,3)}"></td><td th:text="${#numbers.formatDecimal(e.weight2,1,3)}"></td><td th:text="${#numbers.formatDecimal(e.bias,1,3)}"></td><td th:text="${e.totalError}"></td></tr></table><p>Pesos finales: w1=<span th:text="${#numbers.formatDecimal(result.finalW1,1,3)}"></span>, w2=<span th:text="${#numbers.formatDecimal(result.finalW2,1,3)}"></span>, b=<span th:text="${#numbers.formatDecimal(result.finalBias,1,3)}"></span></p></div></div><div th:replace="~{fragments/layout :: footer}"></div></body></html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redes Neuronales</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h2>Unidad 3 - Redes neuronales (Perceptrón)</h2>
+    <p><b>¿Qué responde del examen?</b> Entrenamiento de un perceptrón desde cero, mostrando cambio de pesos y error por época.</p>
+    <p><b>¿Para qué sirve?</b> Resolver clasificación binaria simple (AND/OR) e interpretar aprendizaje.</p>
+  </section>
+
+  <section class="card">
+    <form th:action="@{/redes-neuronales}" th:object="${request}" method="post">
+      <div class="grid-2">
+        <div>
+          <label>Dataset</label>
+          <select th:field="*{datasetType}">
+            <option value="OR">OR (default)</option>
+            <option value="AND">AND</option>
+            <option value="CUSTOM">CUSTOM</option>
+          </select>
+        </div>
+        <div>
+          <label>Tasa de aprendizaje</label><input th:field="*{learningRate}">
+        </div>
+      </div>
+      <label>Épocas</label><input th:field="*{epochs}">
+      <label>Dataset manual (x1,x2,y por línea)</label>
+      <textarea th:field="*{customDataset}" rows="5" placeholder="0,0,0&#10;0,1,1&#10;1,0,1&#10;1,1,1"></textarea>
+      <button type="submit">Entrenar</button>
+    </form>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+  </section>
+
+  <section class="card" th:if="${result != null}">
+    <p><b>Pesos iniciales:</b> w1=<span th:text="${result.initialW1}"></span>, w2=<span th:text="${result.initialW2}"></span>, b=<span th:text="${result.initialBias}"></span></p>
+    <div class="table-wrap">
+      <table class="table">
+        <tr><th>Época</th><th>w1</th><th>w2</th><th>bias</th><th>Error total</th></tr>
+        <tr th:each="e,iter : ${result.epochs}" class="row-animate" th:style="|animation-delay:${iter.index * 70}ms|">
+          <td th:text="${e.epoch}"></td>
+          <td th:text="${#numbers.formatDecimal(e.weight1,1,3)}"></td>
+          <td th:text="${#numbers.formatDecimal(e.weight2,1,3)}"></td>
+          <td th:text="${#numbers.formatDecimal(e.bias,1,3)}"></td>
+          <td th:text="${e.totalError}"></td>
+        </tr>
+      </table>
+    </div>
+    <p><b>Pesos finales:</b> w1=<span th:text="${#numbers.formatDecimal(result.finalW1,1,3)}"></span>, w2=<span th:text="${#numbers.formatDecimal(result.finalW2,1,3)}"></span>, b=<span th:text="${#numbers.formatDecimal(result.finalBias,1,3)}"></span></p>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

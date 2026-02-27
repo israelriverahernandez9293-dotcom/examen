@@ -1,4 +1,48 @@
-<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>BFS</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head><body>
-<div th:replace="~{fragments/layout :: header}"></div><div class="container"><div class="card"><h2>Búsqueda en anchura (BFS)</h2><p>BFS explora por niveles usando una cola FIFO.</p>
-<form th:action="@{/bfs}" th:object="${request}" method="post"><label>Nodos (A,B,C)</label><input th:field="*{nodes}"><label>Aristas (A-B, A-C)</label><input th:field="*{edges}"><label>Origen</label><input th:field="*{startNode}"><button type="submit">Ejecutar BFS</button></form><p class="error" th:if="${error}" th:text="${error}"></p></div>
-<div class="card" th:if="${result != null}"><p><b>Orden:</b> <span th:text="${result.visitOrder}"></span></p><p><b>Niveles:</b> <span th:text="${result.levels}"></span></p><h3>Pasos</h3><table class="table"><tr><th>Iteración</th><th>Actual</th><th>Cola</th><th>Visitados</th></tr><tr th:each="s : ${result.steps}"><td th:text="${s.iteration}"></td><td th:text="${s.current}"></td><td th:text="${s.queue}"></td><td th:text="${s.visited}"></td></tr></table></div></div><div th:replace="~{fragments/layout :: footer}"></div></body></html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BFS</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+  <section class="card">
+    <h2>Unidad 3 - BFS (Breadth-First Search)</h2>
+    <p><b>¿Qué responde del examen?</b> Explicar BFS y ejecutar recorrido por niveles desde un nodo origen.</p>
+    <p><b>¿Para qué sirve?</b> Encontrar caminos mínimos en grafos no ponderados y explorar por capas.</p>
+    <p><b>Cómo usar:</b> escribe nodos, aristas y nodo inicial; observa orden, niveles y pasos de cola/visitados.</p>
+  </section>
+
+  <section class="card">
+    <form th:action="@{/bfs}" th:object="${request}" method="post">
+      <label>Nodos (ej: A,B,C,D)</label><input th:field="*{nodes}">
+      <label>Aristas (ej: A-B, A-C, B-D)</label><input th:field="*{edges}">
+      <label>Nodo origen</label><input th:field="*{startNode}">
+      <button type="submit">Ejecutar BFS</button>
+    </form>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+  </section>
+
+  <section class="card" th:if="${result != null}">
+    <p><b>Orden de visita:</b> <span th:text="${result.visitOrder}"></span></p>
+    <p><b>Niveles:</b> <span th:text="${result.levels}"></span></p>
+    <h3>Simulación paso a paso (animación simple)</h3>
+    <div class="table-wrap">
+      <table class="table">
+        <tr><th>Iteración</th><th>Nodo actual</th><th>Cola</th><th>Visitados</th></tr>
+        <tr th:each="s,iter : ${result.steps}" class="row-animate" th:style="|animation-delay:${iter.index * 100}ms|">
+          <td th:text="${s.iteration}"></td>
+          <td th:text="${s.current}"></td>
+          <td th:text="${s.queue}"></td>
+          <td th:text="${s.visited}"></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
