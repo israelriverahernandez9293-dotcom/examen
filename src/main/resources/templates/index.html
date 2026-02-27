@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Inicio</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<div class="container">
+    <div class="card">
+        <h1>Prácticas de Programación de Sistemas Adaptativos</h1>
+        <p>Explora simulaciones de auto-ajuste, algoritmos genéticos, caos, BFS, redes neuronales y teoría de juegos multiagente.</p>
+        <p>Usa el menú para abrir cada módulo con ejemplos precargados.</p>
+    </div>
+</div>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

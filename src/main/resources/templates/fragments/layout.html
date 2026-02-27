@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <nav class="navbar">
+        <a th:href="@{/inicio}">Inicio</a>
+        <a th:href="@{/auto-ajuste}">Auto-ajuste</a>
+        <a th:href="@{/ga-cruza}">GA Cruza</a>
+        <a th:href="@{/caos-quiz}">Caos Quiz</a>
+        <a th:href="@{/bfs}">BFS</a>
+        <a th:href="@{/redes-neuronales}">Redes Neuronales</a>
+        <a th:href="@{/multiagente}">Multiagente</a>
+    </nav>
+</header>
+<footer th:fragment="footer">
+    <p>Programación de Sistemas Adaptativos - Demo educativa</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Multiagente</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div><div class="container"><div class="card"><h2>Matriz de recompensas 2x2 (agente j)</h2><p>Detecta estrategia dominante estricta o débil para j (columnas).</p>
+<form th:action="@{/multiagente}" th:object="${request}" method="post">
+<label>Fila1-Col1</label><input th:field="*{r1c1}"><label>Fila1-Col2</label><input th:field="*{r1c2}"><label>Fila2-Col1</label><input th:field="*{r2c1}"><label>Fila2-Col2</label><input th:field="*{r2c2}"><button type="submit">Analizar</button></form></div>
+<div class="card" th:if="${result != null}"><p><b>Tipo:</b> <span th:text="${result.type}"></span></p><p><b>Estrategia:</b> <span th:text="${result.strategy}"></span></p><p th:text="${result.explanation}"></p></div></div><div th:replace="~{fragments/layout :: footer}"></div></body></html>

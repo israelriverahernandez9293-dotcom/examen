@@ -1,0 +1,6 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>GA Cruza</title><link rel="stylesheet" th:href="@{/css/styles.css}"></head><body>
+<div th:replace="~{fragments/layout :: header}"></div><div class="container"><div class="card"><h2>Algoritmo Genético - Cruza</h2><p>Recibe padres binarios p1, p2 y punto pc para generar hijos h1, h2.</p>
+<pre th:text="${pseudocode}"></pre>
+<form th:action="@{/ga-cruza}" th:object="${request}" method="post"><label>Padre 1</label><input th:field="*{parent1}"><label>Padre 2</label><input th:field="*{parent2}"><label>Punto de cruza</label><input th:field="*{crossoverPoint}"><button type="submit">Ejecutar</button></form>
+<p class="error" th:if="${error}" th:text="${error}"></p></div>
+<div class="card" th:if="${result != null}"><p th:text="${result.explanation}"></p><p><b>h1:</b> <span th:text="${result.child1}"></span></p><p><b>h2:</b> <span th:text="${result.child2}"></span></p></div></div><div th:replace="~{fragments/layout :: footer}"></div></body></html>
